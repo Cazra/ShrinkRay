@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageOutputStream;
 
 /** A program that reduces the dimensions of all jpg image files in the current directory by 50%.*/
 public class ShrinkRay {
@@ -46,7 +47,11 @@ public class ShrinkRay {
         
         File destFile = new File(destDir + File.separator + file.getName());
         System.out.println("Outputing to " + destFile.getPath());
-        ImageIO.write(img, "jpg", destFile);
+        FileImageOutputStream fios = new FileImageOutputStream(destFile);
+        ImageIO.write(img, "jpg", fios);
+        fios.close();
+      //  ImageIO.write(img, "jpg", destFile);
+        
       }
     }
     catch(Exception e) {
